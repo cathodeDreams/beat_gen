@@ -5,84 +5,344 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beat Generator</title>
     <style>
+        :root {
+            --primary: #3E54AC;
+            --primary-dark: #2A3990;
+            --secondary: #BFACE2;
+            --light: #ECF2FF;
+            --dark: #222;
+            --success: #4CAF50;
+            --danger: #F44336;
+            --warning: #FFC107;
+        }
+        
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', 'Roboto', sans-serif;
             line-height: 1.6;
-            color: #333;
-            max-width: 800px;
+            color: var(--dark);
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f5f5f5;
+            background-color: #f8f9fa;
         }
+        
+        h1, h2, h3 {
+            color: var(--primary);
+        }
+        
         h1 {
-            color: #0066cc;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
         }
+        
         .container {
             background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+        
+        .form-col {
+            flex: 1;
+            padding: 0 10px;
+            min-width: 250px;
+        }
+        
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 1.25rem;
         }
+        
+        .section {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        
+        .section-title h2 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+        
+        .section-title .toggle-icon {
+            margin-left: auto;
+            transition: transform 0.3s;
+        }
+        
+        .section-title.collapsed .toggle-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .section-content {
+            transition: max-height 0.3s ease-out;
+            max-height: 1000px;
+            overflow: hidden;
+        }
+        
+        .section-content.collapsed {
+            max-height: 0;
+        }
+        
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #555;
         }
-        select, input[type="number"], input[type="range"] {
+        
+        select, input[type="number"], input[type="text"] {
             width: 100%;
-            padding: 8px;
+            padding: 0.6rem;
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
+            font-size: 0.9rem;
+            transition: border-color 0.2s;
         }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(62, 84, 172, 0.2);
+        }
+        
         .range-container {
             display: flex;
             align-items: center;
         }
+        
         .range-container input[type="range"] {
             flex: 1;
+            height: 5px;
+            -webkit-appearance: none;
+            background: #ddd;
+            border-radius: 5px;
+            outline: none;
+            margin-right: 10px;
         }
+        
+        .range-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+        }
+        
+        .range-container input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            border: none;
+        }
+        
         .range-value {
             width: 40px;
             text-align: center;
-            margin-left: 10px;
+            background: var(--light);
+            padding: 3px 5px;
+            border-radius: 4px;
+            font-size: 0.85rem;
         }
+        
         button {
-            background-color: #0066cc;
+            background-color: var(--primary);
             color: white;
             border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
+            padding: 12px 20px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            margin-top: 20px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
+        
         button:hover {
-            background-color: #0055aa;
+            background-color: var(--primary-dark);
         }
+        
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .btn-icon {
+            margin-right: 8px;
+        }
+        
         .loading {
             display: none;
             text-align: center;
             margin-top: 20px;
         }
+        
         .spinner {
             border: 4px solid rgba(0, 0, 0, 0.1);
             border-radius: 50%;
-            border-top: 4px solid #0066cc;
+            border-top: 4px solid var(--primary);
             width: 30px;
             height: 30px;
             animation: spin 1s linear infinite;
             margin: 0 auto;
         }
+        
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+        
+        .toggle-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .toggle-label {
+            margin-left: 10px;
+            font-weight: 500;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin-top: 2rem;
+        }
+        
+        .button-row button {
+            flex: 1;
+        }
+        
+        .info-icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            line-height: 16px;
+            text-align: center;
+            border-radius: 50%;
+            background-color: var(--primary);
+            color: white;
+            font-size: 12px;
+            margin-left: 5px;
+            cursor: help;
+        }
+        
+        .tooltip {
+            position: relative;
+        }
+        
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            width: 200px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -100px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.8rem;
+            font-weight: normal;
+        }
+        
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        
+        @media (max-width: 600px) {
+            .form-col {
+                flex: 100%;
+            }
+            
+            .button-row {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -90,72 +350,279 @@
     <div class="container">
         <h1>EDM Beat Generator</h1>
         <form id="beatForm" action="/generate" method="post">
-            <div class="form-group">
-                <label for="genre">Genre:</label>
-                <select id="genre" name="genre">
-                    <option value="house">House</option>
-                    <option value="techno">Techno</option>
-                    <option value="dubstep">Dubstep</option>
-                    <option value="hardstyle">Hardstyle</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="bpm">BPM:</label>
-                <input type="number" id="bpm" name="bpm" min="60" max="200" value="128">
-            </div>
-            
-            <div class="form-group">
-                <label for="bars">Bars:</label>
-                <input type="number" id="bars" name="bars" min="1" max="16" value="4">
-            </div>
-            
-            <div class="form-group">
-                <label for="complexity">Complexity: <span id="complexityValue">0.5</span></label>
-                <div class="range-container">
-                    <input type="range" id="complexity" name="complexity" min="0" max="1" step="0.1" value="0.5" oninput="updateRangeValue('complexity')">
+            <!-- Basic Settings Section -->
+            <div class="section">
+                <div class="section-title">
+                    <h2>Basic Settings</h2>
+                </div>
+                <div class="section-content">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="genre">Genre:</label>
+                                <select id="genre" name="genre">
+                                    <option value="house">House</option>
+                                    <option value="techno">Techno</option>
+                                    <option value="dubstep">Dubstep</option>
+                                    <option value="hardstyle">Hardstyle</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="bpm">BPM:</label>
+                                <input type="number" id="bpm" name="bpm" min="60" max="200" value="128">
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <div class="form-group">
+                                <label for="bars">Bars:</label>
+                                <input type="number" id="bars" name="bars" min="1" max="16" value="4">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="time_signature">Time Signature:</label>
+                                <select id="time_signature" name="time_signature">
+                                    <option value="4/4">4/4</option>
+                                    <option value="3/4">3/4</option>
+                                    <option value="6/8">6/8</option>
+                                    <option value="7/8">7/8</option>
+                                    <option value="5/4">5/4</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="form-group">
-                <label for="swing">Swing: <span id="swingValue">0.0</span></label>
-                <div class="range-container">
-                    <input type="range" id="swing" name="swing" min="0" max="1" step="0.1" value="0.0" oninput="updateRangeValue('swing')">
+            <!-- Groove Settings Section -->
+            <div class="section">
+                <div class="section-title">
+                    <h2>Groove Settings</h2>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label for="complexity">Complexity: <span id="complexityValue">0.5</span></label>
+                        <div class="range-container">
+                            <input type="range" id="complexity" name="complexity" min="0" max="1" step="0.1" value="0.5" oninput="updateRangeValue('complexity')">
+                            <div class="range-value" id="complexityDisplay">0.5</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="swing">Swing: <span id="swingValue">0.0</span></label>
+                        <div class="range-container">
+                            <input type="range" id="swing" name="swing" min="0" max="1" step="0.1" value="0.0" oninput="updateRangeValue('swing')">
+                            <div class="range-value" id="swingDisplay">0.0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="humanize">Humanize: <span id="humanizeValue">0.2</span></label>
+                        <div class="range-container">
+                            <input type="range" id="humanize" name="humanize" min="0" max="1" step="0.1" value="0.2" oninput="updateRangeValue('humanize')">
+                            <div class="range-value" id="humanizeDisplay">0.2</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <div class="toggle-container">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="use_euclidean" name="use_euclidean" value="true">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-label">Use Euclidean Rhythms 
+                                    <span class="tooltip info-icon">i
+                                        <span class="tooltip-text">Creates more interesting rhythms using mathematical patterns</span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="form-col">
+                            <div class="toggle-container">
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="evolving" name="evolving" value="true">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                                <span class="toggle-label">Evolving Patterns
+                                    <span class="tooltip info-icon">i
+                                        <span class="tooltip-text">Patterns change gradually over time</span>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="form-group">
-                <label for="humanize">Humanize: <span id="humanizeValue">0.2</span></label>
-                <div class="range-container">
-                    <input type="range" id="humanize" name="humanize" min="0" max="1" step="0.1" value="0.2" oninput="updateRangeValue('humanize')">
+            <!-- Sound Options Section -->
+            <div class="section">
+                <div class="section-title">
+                    <h2>Sound Options</h2>
+                </div>
+                <div class="section-content">
+                    <div class="form-group">
+                        <label for="sub_bass_type">Sub-Bass Type:</label>
+                        <select id="sub_bass_type" name="sub_bass_type">
+                            <option value="basic">Sine</option>
+                            <option value="basic" data-waveform="triangle">Triangle</option>
+                            <option value="808">808</option>
+                            <option value="wobble">Wobble</option>
+                            <option value="reese">Reese</option>
+                        </select>
+                    </div>
+                    
+                    <div id="wobble_options" class="form-group" style="display: none;">
+                        <label for="wobble_rate">Wobble Rate:</label>
+                        <div class="range-container">
+                            <input type="range" id="wobble_rate" name="wobble_rate" min="0.5" max="8" step="0.5" value="2" oninput="updateRangeValue('wobble_rate')">
+                            <div class="range-value" id="wobble_rateDisplay">2.0</div>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="form-group">
-                <label for="sub_bass_type">Sub-Bass Type:</label>
-                <select id="sub_bass_type" name="sub_bass_type">
-                    <option value="basic">Sine</option>
-                    <option value="basic" data-waveform="triangle">Triangle</option>
-                    <option value="808">808</option>
-                    <option value="wobble">Wobble</option>
-                    <option value="reese">Reese</option>
-                </select>
+            <!-- Advanced Fill Section -->
+            <div class="section">
+                <div class="section-title">
+                    <h2>Advanced Fills</h2>
+                </div>
+                <div class="section-content">
+                    <div class="toggle-container">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="use_advanced_fills" name="use_advanced_fills" value="true">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label">Add advanced fills</span>
+                    </div>
+                    
+                    <div id="fill_options" style="display: none;">
+                        <div class="form-group">
+                            <label for="fill_type">Fill Type:</label>
+                            <select id="fill_type" name="fill_type">
+                                <option value="buildup">Buildup</option>
+                                <option value="glitch">Glitch</option>
+                                <option value="roll">Roll</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fill_intensity">Fill Intensity:</label>
+                            <div class="range-container">
+                                <input type="range" id="fill_intensity" name="fill_intensity" min="0.1" max="1" step="0.1" value="0.7" oninput="updateRangeValue('fill_intensity')">
+                                <div class="range-value" id="fill_intensityDisplay">0.7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <button type="submit" id="generateBtn">Generate Beat</button>
+            <!-- Polyrhythm Section -->
+            <div class="section">
+                <div class="section-title">
+                    <h2>Polyrhythms</h2>
+                </div>
+                <div class="section-content">
+                    <div class="toggle-container">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="use_polyrhythm" name="use_polyrhythm" value="true">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label">Add polyrhythms 
+                            <span class="tooltip info-icon">i
+                                <span class="tooltip-text">Creates complex rhythms by layering different beat divisions</span>
+                            </span>
+                        </span>
+                    </div>
+                    
+                    <div id="polyrhythm_options" style="display: none;">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="rhythm1">First Rhythm:</label>
+                                    <select id="rhythm1" name="rhythm1">
+                                        <option value="3">3</option>
+                                        <option value="4" selected>4</option>
+                                        <option value="5">5</option>
+                                        <option value="2">2</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="rhythm2">Second Rhythm:</label>
+                                    <select id="rhythm2" name="rhythm2">
+                                        <option value="3" selected>3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="7">7</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Output Options Section -->
+            <div class="section">
+                <div class="section-title">
+                    <h2>Output Options</h2>
+                </div>
+                <div class="section-content">
+                    <div class="toggle-container">
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="generate_visualization" name="generate_visualization" value="true">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label">Include waveform visualization</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="button-row">
+                <button type="button" id="previewBtn">
+                    <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    Preview Beat
+                </button>
+                <button type="submit" id="generateBtn">
+                    <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Download Beat
+                </button>
+            </div>
         </form>
         
         <div class="loading" id="loading">
             <p>Generating your beat... this may take a few seconds</p>
             <div class="spinner"></div>
         </div>
+        
+        <div id="previewPlayer" style="display: none; margin-top: 20px; text-align: center;">
+            <h3>Beat Preview</h3>
+            <audio id="audioPlayer" controls style="width: 100%; max-width: 500px;"></audio>
+        </div>
     </div>
 
     <script>
         function updateRangeValue(id) {
             const slider = document.getElementById(id);
-            const valueDisplay = document.getElementById(id + 'Value');
+            const valueDisplay = document.getElementById(id + 'Display');
             valueDisplay.textContent = slider.value;
+            
+            // Also update span if it exists
+            const valueSpan = document.getElementById(id + 'Value');
+            if (valueSpan) {
+                valueSpan.textContent = slider.value;
+            }
         }
 
         document.getElementById('beatForm').addEventListener('submit', function(e) {
@@ -189,8 +656,16 @@
         // Handle triangle waveform
         document.getElementById('sub_bass_type').addEventListener('change', function() {
             const selectedOption = this.options[this.selectedIndex];
+            const wobbleOptions = document.getElementById('wobble_options');
             
-            // If this is the triangle waveform option
+            // Show/hide wobble rate control based on selection
+            if (this.value === 'wobble') {
+                wobbleOptions.style.display = 'block';
+            } else {
+                wobbleOptions.style.display = 'none';
+            }
+            
+            // Handle triangle waveform
             if (selectedOption.value === 'basic' && selectedOption.dataset.waveform === 'triangle') {
                 // Add a hidden field for the waveform
                 let hiddenInput = document.getElementById('waveform-hidden');
@@ -212,6 +687,69 @@
                 }
             }
         });
+        
+        // Show/hide advanced fill options
+        document.getElementById('use_advanced_fills').addEventListener('change', function() {
+            const fillOptions = document.getElementById('fill_options');
+            fillOptions.style.display = this.checked ? 'block' : 'none';
+        });
+        
+        // Show/hide polyrhythm options
+        document.getElementById('use_polyrhythm').addEventListener('change', function() {
+            const polyrhythmOptions = document.getElementById('polyrhythm_options');
+            polyrhythmOptions.style.display = this.checked ? 'block' : 'none';
+        });
+        
+        // Handle section collapsing
+        document.querySelectorAll('.section-title').forEach(title => {
+            title.addEventListener('click', function() {
+                const content = this.nextElementSibling;
+                this.classList.toggle('collapsed');
+                content.classList.toggle('collapsed');
+            });
+        });
+        
+        // Preview beat functionality (this would need a backend endpoint to generate a preview)
+        document.getElementById('previewBtn').addEventListener('click', function() {
+            // Show loading indicator
+            document.getElementById('loading').style.display = 'block';
+            
+            // Create FormData from the form
+            const formData = new FormData(document.getElementById('beatForm'));
+            formData.append('preview', 'true'); // Add flag to indicate preview
+            
+            // Send AJAX request to generate preview
+            fetch('/preview', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                // Create audio URL from blob
+                const audioUrl = URL.createObjectURL(blob);
+                const audioPlayer = document.getElementById('audioPlayer');
+                audioPlayer.src = audioUrl;
+                
+                // Show player and hide loading
+                document.getElementById('previewPlayer').style.display = 'block';
+                document.getElementById('loading').style.display = 'none';
+                
+                // Auto-play
+                audioPlayer.play();
+            })
+            .catch(error => {
+                console.error('Error generating preview:', error);
+                document.getElementById('loading').style.display = 'none';
+                alert('Error generating preview. Please try again.');
+            });
+        });
+        
+        // Initialize range displays
+        updateRangeValue('complexity');
+        updateRangeValue('swing');
+        updateRangeValue('humanize');
+        updateRangeValue('wobble_rate');
+        updateRangeValue('fill_intensity');
     </script>
 </body>
 </html>
