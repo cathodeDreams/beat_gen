@@ -1,0 +1,108 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# VS Code settings
+.vscode/
+
+# PyCharm settings
+.idea/
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Audio files
+*.wav
+*.mp3
+*.ogg
+*.flac
+
+# Generated files and temporary dirs
+output/
+temp/
+TEMP_DIR/
+temp_beats/
+
+# Logs
+*.log
+
+# Database files
+*.db
+*.sqlite3
+
+# Matplotlib generated files
+*.png
+*.pdf
+*.svg
+*.jpg
+*.jpeg
+*.tif
+*.tiff
+
+# Flask sessions and static files
+flask_session/
+instance/
+.webassets-cache

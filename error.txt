@@ -1,0 +1,18 @@
+Traceback (most recent call last):
+  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 1536, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 1514, in wsgi_app
+    response = self.handle_exception(e)
+  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/user/Python/beat_gen/src/beat_gen/webapp.py", line 56, in generate
+    beat, generator = generate_techno_beat(
+  File "/home/user/Python/beat_gen/src/beat_gen/edm_beat_generator.py", line 542, in generate_techno_beat
+    kit.add_sound(create_sub_bass(sub_bass_type, **params))
+NameError: name 'create_sub_bass' is not defined
