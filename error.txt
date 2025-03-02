@@ -1,18 +1,33 @@
-Traceback (most recent call last):
-  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 1536, in __call__
-    return self.wsgi_app(environ, start_response)
-  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 1514, in wsgi_app
-    response = self.handle_exception(e)
-  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/home/user/.cache/pypoetry/virtualenvs/beat-gen-s35nkkQz-py3.10/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-  File "/home/user/Python/beat_gen/src/beat_gen/webapp.py", line 56, in generate
-    beat, generator = generate_techno_beat(
-  File "/home/user/Python/beat_gen/src/beat_gen/edm_beat_generator.py", line 542, in generate_techno_beat
-    kit.add_sound(create_sub_bass(sub_bass_type, **params))
-NameError: name 'create_sub_bass' is not defined
+└─(17:32:12 on main)──> git push -u origin main                                                   ──(Sun,Mar02)─┘
+Username for 'https://github.com': cathodeDreams
+Password for 'https://cathodeDreams@github.com': 
+To https://github.com/cathodeDreams/beat_gen.git
+ ! [rejected]        main -> main (fetch first)
+error: failed to push some refs to 'https://github.com/cathodeDreams/beat_gen.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+(beat-gen-py3.10) ┌─(~/Python/beat_gen)─────────────────────────────────────────────────────────────────────────(user@Azul:pts/2)─┐
+└─(17:33:12 on main)──> git pull                                                              1 ↵ ──(Sun,Mar02)─┘
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+Unpacking objects: 100% (3/3), 1.51 KiB | 1.51 MiB/s, done.
+From https://github.com/cathodeDreams/beat_gen
+   f033bc3..0f6ebcc  main       -> origin/main
+hint: You have divergent branches and need to specify how to reconcile them.
+hint: You can do so by running one of the following commands sometime before
+hint: your next pull:
+hint:
+hint:   git config pull.rebase false  # merge
+hint:   git config pull.rebase true   # rebase
+hint:   git config pull.ff only       # fast-forward only
+hint:
+hint: You can replace "git config" with "git config --global" to set a default
+hint: preference for all repositories. You can also pass --rebase, --no-rebase,
+hint: or --ff-only on the command line to override the configured default per
+hint: invocation.
+fatal: Need to specify how to reconcile divergent branches.
