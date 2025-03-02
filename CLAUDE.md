@@ -2,33 +2,37 @@
 
 ## Development Commands
 ```bash
-# Run the example script
-python -m beat_gen.example
-
 # Install project with Poetry
 poetry install
 
-# Update dependencies
-poetry update
-
-# Run specific modules
+# Run example scripts
 poetry run python -m beat_gen.example
 poetry run python -m beat_gen.demo_edm_generator
+poetry run python -m beat_gen.demo_advanced_fills
+poetry run python -m beat_gen.demo_polyrhythms
 
-# Run tests
+# Generate specific beat types
+poetry run python -c "from beat_gen.edm_beat_generator import generate_house_beat; beat, gen = generate_house_beat(bpm=126); gen.save_beat(beat, 'output/house_beat.wav')"
+
+# Run tests (future - no tests currently exist)
 poetry run pytest
+poetry run pytest tests/test_file.py::test_function  # Run specific test when added
+
+# Update dependencies
+poetry update
 ```
 
 ## Code Style Guidelines
-- **Imports**: Standard library first, then third-party, then local modules
-- **Naming**: snake_case for variables/functions, CamelCase for classes
-- **Types**: Use type hints for function parameters and return values
-- **Formatting**: Follow PEP 8 guidelines (4 spaces indentation)
-- **Error Handling**: Use try/except blocks with specific exceptions
-- **Docstrings**: Include docstrings for modules, classes, and functions
-- **Comments**: Include comments for complex algorithms and calculations
-- **File Organization**: Keep related functionality in same module
+- **Imports**: Standard library first, then third-party (numpy, scipy), then local modules
+- **Naming**: snake_case for variables/methods, CamelCase for classes, UPPER_CASE for constants
+- **Types**: Add type hints for function params and return values (numpy.ndarray, float, etc.)
+- **Formatting**: PEP 8 (4 spaces indent, 88 char line limit, blank lines between functions)
+- **Error Handling**: Use try/except with specific exceptions (ValueError, TypeError)
+- **Docstrings**: Required for all public functions/classes, following Google style format
+- **Comments**: Required for complex algorithms, especially DSP and audio calculations
 
 ## Audio Processing Conventions
-- Use numpy arrays for audio data (-1.0 to 1.0 amplitude range)
-- Sample rate is typically 44100Hz unless specified otherwise
+- Audio data: numpy arrays with -1.0 to 1.0 amplitude range
+- Sample rate: 44100Hz default
+- Time signatures: Specified as tuple (beats_per_bar, beat_value)
+- Beat organization: Follow musical convention (bars, beats, 16th notes)
