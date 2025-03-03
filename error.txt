@@ -1,33 +1,13 @@
-└─(17:32:12 on main)──> git push -u origin main                                                   ──(Sun,Mar02)─┘
-Username for 'https://github.com': cathodeDreams
-Password for 'https://cathodeDreams@github.com': 
-To https://github.com/cathodeDreams/beat_gen.git
- ! [rejected]        main -> main (fetch first)
-error: failed to push some refs to 'https://github.com/cathodeDreams/beat_gen.git'
-hint: Updates were rejected because the remote contains work that you do not
-hint: have locally. This is usually caused by another repository pushing to
-hint: the same ref. If you want to integrate the remote changes, use
-hint: 'git pull' before pushing again.
-hint: See the 'Note about fast-forwards' in 'git push --help' for details.
-(beat-gen-py3.10) ┌─(~/Python/beat_gen)─────────────────────────────────────────────────────────────────────────(user@Azul:pts/2)─┐
-└─(17:33:12 on main)──> git pull                                                              1 ↵ ──(Sun,Mar02)─┘
-remote: Enumerating objects: 4, done.
-remote: Counting objects: 100% (4/4), done.
-remote: Compressing objects: 100% (3/3), done.
-remote: Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
-Unpacking objects: 100% (3/3), 1.51 KiB | 1.51 MiB/s, done.
-From https://github.com/cathodeDreams/beat_gen
-   f033bc3..0f6ebcc  main       -> origin/main
-hint: You have divergent branches and need to specify how to reconcile them.
-hint: You can do so by running one of the following commands sometime before
-hint: your next pull:
-hint:
-hint:   git config pull.rebase false  # merge
-hint:   git config pull.rebase true   # rebase
-hint:   git config pull.ff only       # fast-forward only
-hint:
-hint: You can replace "git config" with "git config --global" to set a default
-hint: preference for all repositories. You can also pass --rebase, --no-rebase,
-hint: or --ff-only on the command line to override the configured default per
-hint: invocation.
-fatal: Need to specify how to reconcile divergent branches.
+python src/beat_gen/city.py                                           ──(Sun,Mar02)─┘
+Generating house beat at 96 BPM...
+Generating city-pop bassline in F...
+Traceback (most recent call last):
+  File "/home/user/Python/beat_gen/src/beat_gen/city.py", line 4, in <module>
+    generate_city_pop_track(
+  File "/home/user/Python/beat_gen/src/beat_gen/city_pop_integration.py", line 103, in generate_city_pop_track
+    bassline, sequence, chord_progression = city_pop_generator.generate_city_pop_bassline(
+  File "/home/user/Python/beat_gen/src/beat_gen/city_pop_bassline.py", line 571, in generate_city_pop_bassline
+    sequence = self.generate_city_pop_sequence(
+  File "/home/user/Python/beat_gen/src/beat_gen/city_pop_bassline.py", line 349, in generate_city_pop_sequence
+    scale = self.create_modal_scale(key, "ionian" if random.random() < 0.7 else "dorian")
+NameError: name 'random' is not defined
